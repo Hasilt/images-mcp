@@ -1,19 +1,19 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.Hasilt/images-mcp",
-  "description": "Search and download stock images (Unsplash, Pexels, Pixabay, Freepik, StockVault, Burst) via MCP tool calls, useful for sourcing images while writing SEO blog posts or other content",
+  "description": "Search and download stock images from Unsplash, Pexels, Pixabay, Freepik, StockVault, and Burst",
   "title": "Stock Image MCP",
   "repository": {
     "url": "https://github.com/Hasilt/images-mcp",
     "source": "github"
   },
-  "version": "0.1.1",
+  "version": "0.1.2",
   "packages": [
     {
       "registryType": "pypi",
       "registryBaseUrl": "https://pypi.org",
       "identifier": "stock-image-mcp",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "runtimeHint": "uvx",
       "transport": {
         "type": "stdio"
