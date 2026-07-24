@@ -1,5 +1,7 @@
 # stock-image-mcp
 
+<!-- mcp-name: io.github.Hasilt/images-mcp -->
+
 An MCP server that lets Claude Code (or any MCP-compatible agent) search and
 download stock images by tool call — useful for sourcing images while writing
 SEO blog posts or other content.
