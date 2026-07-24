@@ -29,19 +29,55 @@ there's no shared hosting or centrally-held keys.
 With [Claude Code](https://docs.claude.com/en/docs/claude-code):
 
 ```bash
-claude mcp add stock-image-mcp -e PEXELS_API_KEY=... -e UNSPLASH_ACCESS_KEY=... -- uvx stock-image-mcp
+claude mcp add stock-image-mcp \
+  -e UNSPLASH_ACCESS_KEY=... \
+  -e UNSPLASH_TIER=demo \
+  -e PEXELS_API_KEY=... \
+  -e PIXABAY_API_KEY=... \
+  -e FREEPIK_API_KEY=... \
+  -e FREEPIK_REQUESTS_PER_MINUTE=60 \
+  -e STOCKVAULT_API_KEY=... \
+  -e STOCKVAULT_REQUESTS_PER_HOUR=60 \
+  -e BURST_REQUESTS_PER_MINUTE=10 \
+  -e DEFAULT_PROVIDER=pexels \
+  -e DOWNLOAD_DIR=./downloads \
+  -- uvx stock-image-mcp
 ```
 
 With [OpenAI Codex CLI](https://github.com/openai/codex):
 
 ```bash
-codex mcp add stock-image-mcp --env PEXELS_API_KEY=... --env UNSPLASH_ACCESS_KEY=... -- uvx stock-image-mcp
+codex mcp add stock-image-mcp \
+  --env UNSPLASH_ACCESS_KEY=... \
+  --env UNSPLASH_TIER=demo \
+  --env PEXELS_API_KEY=... \
+  --env PIXABAY_API_KEY=... \
+  --env FREEPIK_API_KEY=... \
+  --env FREEPIK_REQUESTS_PER_MINUTE=60 \
+  --env STOCKVAULT_API_KEY=... \
+  --env STOCKVAULT_REQUESTS_PER_HOUR=60 \
+  --env BURST_REQUESTS_PER_MINUTE=10 \
+  --env DEFAULT_PROVIDER=pexels \
+  --env DOWNLOAD_DIR=./downloads \
+  -- uvx stock-image-mcp
 ```
 
 With [Gemini CLI](https://github.com/google-gemini/gemini-cli):
 
 ```bash
-gemini mcp add stock-image-mcp -e PEXELS_API_KEY=... -e UNSPLASH_ACCESS_KEY=... -- uvx stock-image-mcp
+gemini mcp add stock-image-mcp \
+  -e UNSPLASH_ACCESS_KEY=... \
+  -e UNSPLASH_TIER=demo \
+  -e PEXELS_API_KEY=... \
+  -e PIXABAY_API_KEY=... \
+  -e FREEPIK_API_KEY=... \
+  -e FREEPIK_REQUESTS_PER_MINUTE=60 \
+  -e STOCKVAULT_API_KEY=... \
+  -e STOCKVAULT_REQUESTS_PER_HOUR=60 \
+  -e BURST_REQUESTS_PER_MINUTE=10 \
+  -e DEFAULT_PROVIDER=pexels \
+  -e DOWNLOAD_DIR=./downloads \
+  -- uvx stock-image-mcp
 ```
 
 Or add it to your MCP config manually with [`uvx`](https://docs.astral.sh/uv/guides/tools/)
@@ -55,17 +91,30 @@ first run):
       "command": "uvx",
       "args": ["stock-image-mcp"],
       "env": {
+        "UNSPLASH_ACCESS_KEY": "...",
+        "UNSPLASH_TIER": "demo",
         "PEXELS_API_KEY": "...",
-        "UNSPLASH_ACCESS_KEY": "..."
+        "PIXABAY_API_KEY": "...",
+        "FREEPIK_API_KEY": "...",
+        "FREEPIK_REQUESTS_PER_MINUTE": "60",
+        "STOCKVAULT_API_KEY": "...",
+        "STOCKVAULT_REQUESTS_PER_HOUR": "60",
+        "BURST_REQUESTS_PER_MINUTE": "10",
+        "DEFAULT_PROVIDER": "pexels",
+        "DOWNLOAD_DIR": "./downloads"
       }
     }
   }
 }
 ```
 
-Any provider env var you omit is simply skipped by `search_all_images` and
-rejected if queried directly via `search_stock_images` — see `.env.example`
-for the full list of supported keys.
+Only `UNSPLASH_ACCESS_KEY`, `PEXELS_API_KEY`, `PIXABAY_API_KEY`,
+`FREEPIK_API_KEY`, and `STOCKVAULT_API_KEY` are actual secrets — set only the
+ones for providers you want enabled and drop the rest; any provider key you
+omit is simply skipped by `search_all_images` and rejected if queried
+directly via `search_stock_images`. The remaining variables are optional
+tuning knobs shown above with their defaults — see `.env.example` for the
+full list.
 
 ## Tools
 
@@ -123,8 +172,17 @@ Point your Claude config at the local checkout instead of `uvx`:
         "stock-image-mcp"
       ],
       "env": {
+        "UNSPLASH_ACCESS_KEY": "...",
+        "UNSPLASH_TIER": "demo",
         "PEXELS_API_KEY": "...",
-        "UNSPLASH_ACCESS_KEY": "..."
+        "PIXABAY_API_KEY": "...",
+        "FREEPIK_API_KEY": "...",
+        "FREEPIK_REQUESTS_PER_MINUTE": "60",
+        "STOCKVAULT_API_KEY": "...",
+        "STOCKVAULT_REQUESTS_PER_HOUR": "60",
+        "BURST_REQUESTS_PER_MINUTE": "10",
+        "DEFAULT_PROVIDER": "pexels",
+        "DOWNLOAD_DIR": "./downloads"
       }
     }
   }
