@@ -1,0 +1,60 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.Hasilt/images-mcp",
+  "description": "Search and download stock images (Unsplash, Pexels, Pixabay, Freepik, StockVault, Burst) via MCP tool calls, useful for sourcing images while writing SEO blog posts or other content",
+  "title": "Stock Image MCP",
+  "repository": {
+    "url": "https://github.com/Hasilt/images-mcp",
+    "source": "github"
+  },
+  "version": "0.1.0",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "registryBaseUrl": "https://pypi.org",
+      "identifier": "stock-image-mcp",
+      "version": "0.1.0",
+      "runtimeHint": "uvx",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "UNSPLASH_ACCESS_KEY",
+          "description": "Unsplash API access key",
+          "isRequired": false,
+          "isSecret": true
+        },
+        {
+          "name": "PEXELS_API_KEY",
+          "description": "Pexels API key",
+          "isRequired": false,
+          "isSecret": true
+        },
+        {
+          "name": "PIXABAY_API_KEY",
+          "description": "Pixabay API key",
+          "isRequired": false,
+          "isSecret": true
+        },
+        {
+          "name": "FREEPIK_API_KEY",
+          "description": "Freepik API key",
+          "isRequired": false,
+          "isSecret": true
+        },
+        {
+          "name": "STOCKVAULT_API_KEY",
+          "description": "StockVault API key",
+          "isRequired": false,
+          "isSecret": true
+        },
+        {
+          "name": "DEFAULT_PROVIDER",
+          "description": "Provider used when a tool call passes provider=\"default\"",
+          "default": "pexels"
+        }
+      ]
+    }
+  ]
+}

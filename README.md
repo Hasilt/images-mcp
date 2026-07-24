@@ -19,29 +19,54 @@ Burst has no public API. It's included as a best-effort HTML scraper, clearly
 marked unsupported in code — any failure there is caught and reported as an
 empty result rather than breaking `search_all_images`.
 
-## Setup
+## Install
 
-```bash
-uv sync
-cp .env.example .env   # fill in the API keys for providers you want enabled
+Each user runs the server locally and supplies their own provider API keys —
+there's no shared hosting or centrally-held keys.
+
+Add it to your Claude config with [`uvx`](https://docs.astral.sh/uv/guides/tools/)
+(no clone or install step required — `uvx` fetches the package from PyPI on
+first run):
+
+```json
+{
+  "mcpServers": {
+    "stock-image-mcp": {
+      "command": "uvx",
+      "args": ["stock-image-mcp"],
+      "env": {
+        "PEXELS_API_KEY": "...",
+        "UNSPLASH_ACCESS_KEY": "..."
+      }
+    }
+  }
+}
 ```
+
+Any provider env var you omit is simply skipped by `search_all_images` and
+rejected if queried directly via `search_stock_images` — see `.env.example`
+for the full list of supported keys.
 
 ## Tools
 
-- `search_images(query, provider="default", orientation=None, per_page=10, page=1)`
+- `search_stock_images(query, provider="default", orientation=None, per_page=10, page=1)`
 - `search_all_images(query, orientation=None, per_page=5)` — fans out to every configured provider concurrently
 - `get_best_image(query, provider="default")`
 - `download_image(url, dest_path, provider=None)` — saves locally, returns attribution text if the image came from a prior search
 - `get_attribution(provider, image_id)`
 - `get_rate_limit_status(provider=None)`
 
-## Running
+## Developing locally
+
+Working from a clone instead of the published package:
 
 ```bash
+uv sync
+cp .env.example .env   # fill in the API keys for providers you want enabled
 uv run stock-image-mcp
 ```
 
-### Registering with Claude Code
+Point your Claude config at the local checkout instead of `uvx`:
 
 ```json
 {
@@ -72,3 +97,16 @@ To try it against real providers, use the [MCP Inspector](https://modelcontextpr
 ```bash
 npx @modelcontextprotocol/inspector uv run stock-image-mcp
 ```
+
+## Releasing
+
+Publishing to PyPI is handled by `.github/workflows/publish.yml`, triggered by
+pushing a `v*` tag (e.g. `v0.1.0`). It runs lint/type-check/tests, builds the
+package, then publishes via PyPI's trusted-publisher (OIDC) flow — no token
+stored in CI.
+
+One-time setup on PyPI (before the first tagged release): add a "pending
+publisher" at <https://pypi.org/manage/account/publishing/> with PyPI project
+name `stock-image-mcp`, repo owner `Hasilt`, repo name `images-mcp`, workflow
+filename `publish.yml`, and environment `pypi`. PyPI creates the project
+automatically on the first successful run of that workflow.

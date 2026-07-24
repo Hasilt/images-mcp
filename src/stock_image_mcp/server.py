@@ -57,7 +57,7 @@ def _resolve_provider(provider: str) -> ProviderName:
 
 
 @mcp.tool()
-async def search_images(
+async def search_stock_images(
     query: str,
     provider: str = "default",
     orientation: str | None = None,
@@ -104,7 +104,7 @@ async def search_all_images(
 @mcp.tool()
 async def get_best_image(query: str, provider: str = "default") -> ImageResult | None:
     """Return the single top-ranked result for a query from one provider."""
-    results = await search_images(query, provider=provider, per_page=1, page=1)
+    results = await search_stock_images(query, provider=provider, per_page=1, page=1)
     return results[0] if results else None
 
 
@@ -141,7 +141,7 @@ def get_attribution(provider: str, image_id: str) -> str:
     cached = _result_cache.get((provider_name, image_id))
     if cached is None:
         raise ValueError(
-            f"No cached result for {provider_name}:{image_id}; call search_images first"
+            f"No cached result for {provider_name}:{image_id}; call search_stock_images first"
         )
     return format_attribution(cached, _providers)
 

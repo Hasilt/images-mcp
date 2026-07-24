@@ -31,11 +31,11 @@ _PEXELS_RESPONSE = {
 
 
 @respx.mock
-async def test_search_images_uses_default_provider() -> None:
+async def test_search_stock_images_uses_default_provider() -> None:
     respx.get("https://api.pexels.com/v1/search").mock(
         return_value=httpx.Response(200, json=_PEXELS_RESPONSE)
     )
-    results = await server.search_images("test query")
+    results = await server.search_stock_images("test query")
     assert len(results) == 1
     assert results[0].provider.value == "pexels"
 
@@ -50,9 +50,9 @@ async def test_get_best_image_returns_top_result() -> None:
     assert best.id == "1"
 
 
-async def test_search_images_rejects_unconfigured_provider() -> None:
+async def test_search_stock_images_rejects_unconfigured_provider() -> None:
     try:
-        await server.search_images("test query", provider="stockvault")
+        await server.search_stock_images("test query", provider="stockvault")
     except ValueError as exc:
         assert "not configured" in str(exc)
     else:
@@ -64,7 +64,7 @@ async def test_search_then_get_attribution_round_trip() -> None:
     respx.get("https://api.pexels.com/v1/search").mock(
         return_value=httpx.Response(200, json=_PEXELS_RESPONSE)
     )
-    results = await server.search_images("test query")
+    results = await server.search_stock_images("test query")
     attribution = server.get_attribution("pexels", results[0].id)
     assert "Test Photographer" in attribution
 

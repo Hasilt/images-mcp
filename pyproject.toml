@@ -1,10 +1,21 @@
 [project]
 name = "stock-image-mcp"
 version = "0.1.0"
-description = "Add your description here"
+description = "MCP server for searching and downloading stock images (Unsplash, Pexels, Pixabay, Freepik, StockVault, Burst) via LLM tool calls"
 readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [
     { name = "Hasil T", email = "contact.hasil@gmail.com" }
+]
+keywords = ["mcp", "model-context-protocol", "stock-images", "unsplash", "pexels", "pixabay", "seo", "blogging"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 requires-python = ">=3.11"
 dependencies = [
@@ -15,6 +26,11 @@ dependencies = [
     "pydantic>=2.13.4",
     "pydantic-settings>=2.14.2",
 ]
+
+[project.urls]
+Homepage = "https://github.com/Hasilt/images-mcp"
+Repository = "https://github.com/Hasilt/images-mcp"
+Issues = "https://github.com/Hasilt/images-mcp/issues"
 
 [project.scripts]
 stock-image-mcp = "stock_image_mcp.server:main"
