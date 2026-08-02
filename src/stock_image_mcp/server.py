@@ -5,7 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 
 import httpx
-from mcp.server.fastmcp import FastMCP
+from mcp.server.mcpserver import MCPServer
 
 from stock_image_mcp.aggregator import search_all
 from stock_image_mcp.attribution import format_attribution
@@ -22,7 +22,7 @@ from stock_image_mcp.providers import build_providers
 from stock_image_mcp.providers.base import ImageProvider
 from stock_image_mcp.rate_limiter import RateLimiter
 
-mcp = FastMCP("stock-image-mcp")
+mcp = MCPServer("stock-image-mcp")
 
 _settings: Settings = get_settings()
 _client = httpx.AsyncClient(timeout=30.0, follow_redirects=True)
